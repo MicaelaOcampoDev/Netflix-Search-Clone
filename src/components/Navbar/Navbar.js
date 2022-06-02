@@ -18,6 +18,7 @@ import {
   useDisclosure,
   InputGroup,
   InputLeftElement,
+  useBreakpointValue,
   Input,
   Image,
 } from "@chakra-ui/react";
@@ -38,8 +39,8 @@ export default function WithSubnavigation() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue("black", "gray.800")}
-        color={useColorModeValue("gray.600", "white")}
+        bg={useColorModeValue("black", "white")}
+        color={useColorModeValue("red", "black")}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -62,7 +63,12 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <Image src={Logo} alt="Logo de Netflix" h="20px" />
+          <Image
+            src={Logo}
+            alt="Logo de Netflix"
+            h="20px"
+            alignContent={useBreakpointValue({ base: "center", md: "left" })}
+          />
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -294,6 +300,7 @@ function SearchBar() {
     e.preventDefault();
     setSearch({ title: querySearch });
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <InputGroup>

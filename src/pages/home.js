@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Grid, Box } from "@chakra-ui/react";
+import { Grid, Box, useBreakpointValue } from "@chakra-ui/react";
+
 import Axios from "axios";
 
 import { URL, API_KEY } from "../utils/constants";
@@ -24,6 +25,7 @@ export default function Home() {
       console.log("Error find movies", err);
     }
   };
+
   const [search] = useSearchParams();
   useEffect(() => {
     const title = search.get("title");
@@ -32,8 +34,19 @@ export default function Home() {
     }
   }, [search]);
 
+  const variant = useBreakpointValue({
+    base: "1",
+    md: "solid",
+  });
+
   return (
-    <Grid templateColumns="repeat(6, 1fr)" gap={4} my={8} justifyItems="center">
+    <Grid
+      templateColumns={{ lg: "repeat(6, 1fr)", base: "repeat(2, 1fr)" }}
+      gap={4}
+      my={8}
+      justifyItems="center"
+      variant={variant}
+    >
       {movies.map((movie) => (
         <Box
           bgSize="cover"
